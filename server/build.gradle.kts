@@ -9,13 +9,13 @@ repositories {
     mavenCentral()
 }
 
-val ktor_version: String by project
-val logback_version: String by project
+val ktorVersion: String by project
+val logbackVersion: String by project
 
 dependencies {
     // Ktor + Netty engine --> allow us to use server functionality without having to rely on an external app container
-    implementation("io.ktor:ktor-server-netty:$ktor_version")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
     // WebSocket Ktor plugin --> the main communication mechanism for the chat
-    implementation("io.ktor:ktor-websockets:$ktor_version")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("io.ktor:ktor-websockets:$ktorVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
 }

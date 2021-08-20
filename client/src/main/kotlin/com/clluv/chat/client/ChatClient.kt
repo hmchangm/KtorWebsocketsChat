@@ -1,10 +1,10 @@
 package com.clluv.chat.client
 
+import arrow.core.Either
 import io.ktor.client.*
 import io.ktor.client.features.websocket.*
 import io.ktor.http.*
 import io.ktor.http.cio.websocket.*
-import io.ktor.util.*
 import kotlinx.coroutines.*
 
 fun main() {
@@ -36,13 +36,25 @@ fun main() {
 /*
  * Suspending functions are the center of everything coroutines
  * A suspending function is simply a function that can be paused and resumed at a later time.
- * They can execute a long running operation and wait for it to complete without blocking.
+ * They can execute a long-running operation and wait for it to complete without blocking.
  */
 /*
  * Because the function operates in the context of a DefaultClientWebSocketSession,
  * define it as an extension function on the type.
  */
-suspend fun DefaultClientWebSocketSession.outputMessages() {
+suspend fun DefaultClientWebSocketSession.outputMessages(): Either<Exception, Unit> =
+    Either.catch {
+        for (message in incoming) {
+            val printMsg = (message as? Frame.Text ?: continue).readText()
+            if ("You are connected with the name".toRegex().containsMatchIn(printMsg)) {
+                send("[[[adding]]]")
+            }
+            println(printMsg)
+        }
+    }.mapLeft {
+        Exception("Error while receiving: " + it.localizedMessage)
+    }
+/*suspend fun DefaultClientWebSocketSession.outputMessages() {
     try {
         for (message in incoming) {
             message as? Frame.Text ?: continue
@@ -51,13 +63,26 @@ suspend fun DefaultClientWebSocketSession.outputMessages() {
     } catch (e: Exception) {
         println("Error while receiving: " + e.localizedMessage)
     }
-}
+}*/
 
 /*
  * To read text from the command line and send it to the server,
  * or to return when the user types exit.
  */
-suspend fun DefaultClientWebSocketSession.inputMessages() {
+suspend fun DefaultClientWebSocketSession.inputMessages(): Either<Exception, Unit> =
+    Either.catch {
+        while (true) {
+            val message = readLine() ?: ""
+            if (message.equals("exit", true)) {
+                send("[[[leaving]]]")
+                break
+            }
+            send(message)
+        }
+    }.mapLeft {
+        Exception("Error while sending: " + it.localizedMessage)
+    }
+/*suspend fun DefaultClientWebSocketSession.inputMessages() {
     while (true) {
         val message = readLine() ?: ""
         if (message.equals("exit", true)) return
@@ -68,4 +93,4 @@ suspend fun DefaultClientWebSocketSession.inputMessages() {
             return
         }
     }
-}
+}*/

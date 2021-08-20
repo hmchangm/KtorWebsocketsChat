@@ -15,28 +15,33 @@ fun Application.module() {
         // A thread-safe collection of Collections.
         val connections = Collections.synchronizedSet<Connection?>(LinkedHashSet())
         webSocket("/chat") {
-            println("Adding user!")
             val thisConnection = Connection(this)
             connections += thisConnection
+            println("${thisConnection.name} joins!")
             try {
-                send("You are connected! There are ${connections.count()} users here.")
+                send("[You are connected with the name ${thisConnection.name}! There are ${connections.count()} users here.]")
                 for (frame in incoming) {
-                    frame as? Frame.Text ?: continue
-                    val receivedText = frame.readText()
+                    val receivedText = (frame as? Frame.Text ?: continue).readText()
                     /*
                      * When receiving a message from the user -->
                      * Prefix it with the unique name associated with their Connection object,
                      * and send it to all currently active connections
                      */
-                    val textWithUsername = "[${thisConnection.name}]: $receivedText"
-                    connections.forEach {
-                        it.session.send(textWithUsername)
+                    val processedText = when (receivedText) {
+                        "[[[adding]]]" -> "[${thisConnection.name} joins.]"
+                        "[[[leaving]]]" -> "[${thisConnection.name} leaves the chatroom.]"
+                        else -> "[${thisConnection.name}]: $receivedText"
+                    }
+
+                    connections.filterNot { it.equals(thisConnection) }.forEach {
+                        it.session.send(processedText)
                     }
                 }
             } catch (e: Exception) {
                 println(e.localizedMessage)
             } finally {
-                println("Removing $thisConnection!")
+                println("${thisConnection.name} leaves!")
+                //println("Removing $thisConnection!")
                 connections -= thisConnection
             }
         }
