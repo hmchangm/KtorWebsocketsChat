@@ -5,5 +5,8 @@
 *.iml
 *.ipr
 *.iws
+*.lock
 server/.gradle
 client/.gradle
+server/build
+client/build
