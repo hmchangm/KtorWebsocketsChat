@@ -29,7 +29,6 @@ fun Application.module() {
                      * and send it to all currently active connections
                      */
                     val processedText = chatContent(receivedText, thisConnection.name)
-
                     connections.forEach {
                         it.session.send(processedText)
                     }

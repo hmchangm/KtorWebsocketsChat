@@ -21,9 +21,8 @@ fun replyContentFromAI(message: String, userName: String): String? {
     val request = HttpRequest.newBuilder()
         .uri(URI.create("${brainAiUrl}?${urlParams}"))
         .build()
-
     val response = client.send(request, HttpResponse.BodyHandlers.ofString())
     val reply = Klaxon().parse<AiReply.AiReplyData>(response.body())
-    println(response.body())
+    //println(response.body())
     return reply?.cnt
 }
