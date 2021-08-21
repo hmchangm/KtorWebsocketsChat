@@ -1,12 +1,5 @@
-.gradle/
-.idea/
-out/
-build/
-*.iml
-*.ipr
-*.iws
-*.lock
-server/.gradle/
-client/.gradle/
-server/build/
-client/build/
+.idea/*
+client/.gradle/*
+server/.gradle/*
+client/build/*
+server/build/*
