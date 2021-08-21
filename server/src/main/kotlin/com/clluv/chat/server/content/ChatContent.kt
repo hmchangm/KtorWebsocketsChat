@@ -12,15 +12,11 @@ fun chatContent(receivedText: String, userName: String): String {
 fun aiReply(receivedText: String, userName: String): String {
     var aiRepliedMsg = ""
     try {
-        aiRepliedMsg = replyContentFromAI(receivedText, userName) ?: ""
+        aiRepliedMsg = connectToAIForMsgReply(receivedText, userName) ?: ""
     } catch (e: Exception) {
         println(e.localizedMessage)
-    } finally {
-        if (aiRepliedMsg.isNullOrEmpty()) {
-            aiRepliedMsg = "***LunLunBot is not connected!"
-        }
     }
-    return aiRepliedMsg
+    return aiRepliedMsg.ifEmpty { "***LunLunBot is not connected!" }
 }
 
 fun askAIBrain(receivedText: String, userName: String): String {
