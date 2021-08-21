@@ -1,7 +1,7 @@
 package com.clluv.chat.server.content
 
 import com.beust.klaxon.Klaxon
-import com.clluv.chat.server.`class`.AiReply
+import com.clluv.chat.server.model.AiReply
 import java.net.URI
 import java.net.URLEncoder
 import java.net.http.HttpClient
