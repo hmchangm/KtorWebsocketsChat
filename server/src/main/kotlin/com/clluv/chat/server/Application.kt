@@ -1,5 +1,6 @@
 package com.clluv.chat.server
 
+import com.clluv.chat.server.content.chatContent
 import io.ktor.application.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.routing.*
@@ -27,15 +28,14 @@ fun Application.module() {
                      * Prefix it with the unique name associated with their Connection object,
                      * and send it to all currently active connections
                      */
-                    val processedText = when (receivedText) {
-                        "[[[adding]]]" -> "[${thisConnection.name} joins.]"
-                        "[[[leaving]]]" -> "[${thisConnection.name} leaves the chatroom.]"
-                        else -> "[${thisConnection.name}]: $receivedText"
-                    }
+                    val processedText = chatContent(receivedText, thisConnection.name)
 
-                    connections.filterNot { it.equals(thisConnection) }.forEach {
+                    connections.forEach {
                         it.session.send(processedText)
                     }
+                    /*connections.filterNot { it.equals(thisConnection) }.forEach {
+                        it.session.send(processedText)
+                    }*/
                 }
             } catch (e: Exception) {
                 println(e.localizedMessage)

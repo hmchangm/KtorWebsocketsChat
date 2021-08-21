@@ -18,4 +18,8 @@ dependencies {
     // WebSocket Ktor plugin --> the main communication mechanism for the chat
     implementation("io.ktor:ktor-websockets:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+
+    implementation("com.squareup.okhttp3:okhttp:3.8.1")
+
+    implementation("com.beust:klaxon:5.5")
 }
