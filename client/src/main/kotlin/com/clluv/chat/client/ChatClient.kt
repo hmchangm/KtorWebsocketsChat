@@ -49,42 +49,18 @@ suspend fun DefaultClientWebSocketSession.outputMessages(): Either<Exception, Un
     }.mapLeft {
         Exception("Error while receiving: " + it.localizedMessage)
     }
-/*suspend fun DefaultClientWebSocketSession.outputMessages() {
-    try {
-        for (message in incoming) {
-            message as? Frame.Text ?: continue
-            println(message.readText())
-        }
-    } catch (e: Exception) {
-        println("Error while receiving: " + e.localizedMessage)
-    }
-}*/
 
 /**
  * To read text from the command line and send it to the server, or to return when the user types exit.
  */
 suspend fun DefaultClientWebSocketSession.inputMessages(): Either<Exception, Unit> =
     Either.catch {
-        while (true) {
-            val message = readLine() ?: ""
-            if (message.equals("exit", true)) {
-                send("[[[leaving]]]")
-                break
-            }
+        var message = readLine() ?: ""
+        while(!message.equals("exit", true)) {
             send(message)
+            message = readLine() ?: ""
         }
+        send("[[[leaving]]]")
     }.mapLeft {
         Exception("Error while sending: " + it.localizedMessage)
     }
-/*suspend fun DefaultClientWebSocketSession.inputMessages() {
-    while (true) {
-        val message = readLine() ?: ""
-        if (message.equals("exit", true)) return
-        try {
-            send(message)
-        } catch (e: Exception) {
-            println("Error while sending: " + e.localizedMessage)
-            return
-        }
-    }
-}*/
