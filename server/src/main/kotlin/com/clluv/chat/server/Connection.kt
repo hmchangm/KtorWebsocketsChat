@@ -1,10 +1,12 @@
 package com.clluv.chat.server
+
 import io.ktor.http.cio.websocket.*
 import java.util.concurrent.atomic.*
 
-/* Manage the WebSocket connection
- * DefaultWebSocketSession: contains everything required for communicating vai WebSockets,
- * including the incoming and outgoing channels, convenience methods for communication.
+/**
+ * Manage the WebSocket connection
+ * @param session (DefaultWebSocketSession) contains everything required for communicating vai WebSockets,
+ *                including the incoming and outgoing channels, convenience methods for communication.
  */
 class Connection(val session: DefaultWebSocketSession) {
     companion object {

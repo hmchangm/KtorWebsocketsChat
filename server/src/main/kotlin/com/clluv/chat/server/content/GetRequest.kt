@@ -14,6 +14,12 @@ const val key = "94YUpfQ2ppLRi2HY"
 
 fun String.utf8(): String = URLEncoder.encode(this, "UTF-8")
 
+/**
+ * Connect to external AI API
+ * @param message the chat content
+ * @param userName the user id
+ * @return the reply from AI brain
+ */
 fun connectToAIForMsgReply(message: String, userName: String): String? {
     val params = mapOf("bid" to bid, "key" to key, "uid" to userName, "msg" to message)
     val urlParams = params.map {(k, v) -> "${(k.utf8())}=${v.utf8()}"}.joinToString("&")

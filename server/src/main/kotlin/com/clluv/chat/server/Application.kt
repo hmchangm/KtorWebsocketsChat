@@ -23,11 +23,6 @@ fun Application.module() {
                 send("[You are connected with the name ${thisConnection.name}! There are ${connections.count()} users here.]")
                 for (frame in incoming) {
                     val receivedText = (frame as? Frame.Text ?: continue).readText()
-                    /*
-                     * When receiving a message from the user -->
-                     * Prefix it with the unique name associated with their Connection object,
-                     * and send it to all currently active connections
-                     */
                     val processedText = chatContent(receivedText, thisConnection.name)
                     connections.forEach {
                         it.session.send(processedText)
@@ -40,7 +35,6 @@ fun Application.module() {
                 println(e.localizedMessage)
             } finally {
                 println("${thisConnection.name} leaves!")
-                //println("Removing $thisConnection!")
                 connections -= thisConnection
             }
         }
