@@ -24,7 +24,7 @@ fun chatContent(receivedText: String, userName: String): String {
 fun aiReply(receivedText: String, userName: String): String {
     var aiRepliedMsg = ""
     try {
-        aiRepliedMsg = connectToAIForMsgReply(receivedText, userName) ?: ""
+        aiRepliedMsg = AiService().connectToAIForMsgReply(receivedText, userName) ?: ""
         aiRepliedMsg = aiRepliedMsg.replace(" Aco", " LunLunBot")
     } catch (e: Exception) {
         println(e.localizedMessage)

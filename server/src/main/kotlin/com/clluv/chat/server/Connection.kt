@@ -14,5 +14,5 @@ class Connection(val session: DefaultWebSocketSession) {
         // To ensure 2 users will never receive the same ID even when their Connection objects are created simultaneously on separate threads.
         var lastId = AtomicInteger(0)
     }
-    val name = "user${com.clluv.chat.server.Connection.Companion.lastId.getAndIncrement()}"
+    val name = "user${lastId.getAndIncrement()}"
 }
