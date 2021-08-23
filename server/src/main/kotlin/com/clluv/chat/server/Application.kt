@@ -1,6 +1,6 @@
 package com.clluv.chat.server
 
-import com.clluv.chat.server.content.chatContent
+import com.clluv.chat.server.service.ChatService
 import io.ktor.application.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.routing.*
@@ -23,7 +23,7 @@ fun Application.module() {
                 send("[You are connected with the name ${thisConnection.name}! There are ${connections.count()} users here.]")
                 for (frame in incoming) {
                     val receivedText = (frame as? Frame.Text ?: continue).readText()
-                    val processedText = chatContent(receivedText, thisConnection.name)
+                    val processedText = ChatService().chatContent(receivedText, thisConnection.name)
                     connections.forEach {
                         it.session.send(processedText)
                     }

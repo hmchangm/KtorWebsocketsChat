@@ -1,4 +1,4 @@
-package com.clluv.chat.server.content
+package com.clluv.chat.server.service
 
 import com.beust.klaxon.Klaxon
 import com.clluv.chat.server.model.AiReply

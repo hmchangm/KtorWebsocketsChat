@@ -1,4 +1,4 @@
-package com.clluv.chat.server.content
+package com.clluv.chat.server.service
 
 import org.junit.jupiter.api.Test
 
