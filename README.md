@@ -32,7 +32,7 @@ The chat client, also send some commands to the server to let others know the cl
 > 
 >They can execute a long-running operation and wait for it to complete without blocking.
 
-##Reference
+## Reference
 - [Creating a WebSocket Chat](https://ktor.io/docs/creating-web-socket-chat.html).
 - [BrainShop by Acobat](https://brainshop.ai/). 
 
