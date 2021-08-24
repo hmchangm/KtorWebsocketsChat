@@ -1,12 +1,12 @@
 package com.clluv.chat.server.service
 
 class ChatService {
-   /**
-    * To process the chat content received from the client
-    * @param receivedText the text sent from the client
-    * @param userName this client's connection name
-    * @return the processed content to send to others
-    */
+    /**
+     * To process the chat content received from the client
+     * @param receivedText the text sent from the client
+     * @param userName this client's connection name
+     * @return the processed content to send to others
+     */
     fun chatContent(receivedText: String, userName: String, allUsernames: List<String>): String {
         val returnText = when (receivedText) {
             "[[[adding]]]" -> "[${userName} joins.]"
