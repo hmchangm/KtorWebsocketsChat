@@ -7,14 +7,17 @@ Support multi-clients chat together, and at the same, the LunLunBot will join th
 - [x] ***Ktor + Netty*** to use server functionality without having to rely on an external app container.
 - [x] ***Ktor WebSocket*** the main communication mechanism for the chat.
 - [x] ***Arrow-kt*** the FP coding style for Kotlin.
-### Server Side
+### Server
 In charge of all the messages exchange for clients and the bridge to connect to the AI brain. 
 > Main: /KtorWebsocketsChat/server/sre/main/kotlin/com/clluv/chat/server/Application.kt
 
-### Client Side
+### Client
 The chat client, also send some commands to the server to let others know the client is adding/leavning to the chat.
 > Main: /KtorWebsocketsChat/client/sre/main/kotlin/com/clluv/chat/client/ChatClient.kt
 
+### Commands
+Clients can type ***/commads*** to list all supporting commands
+> /commands
 
 ## Terms
 #### WebSockets
