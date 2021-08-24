@@ -3,7 +3,7 @@
 # Kotlin Chat App
 Support multi-clients chat together, and at the same, the LunLunBot will join the chat.
 
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 ## Architecture
 - [x] ***Ktor + Netty*** to use server functionality without having to rely on an external app container.

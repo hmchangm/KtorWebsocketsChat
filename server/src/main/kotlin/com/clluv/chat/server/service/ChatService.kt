@@ -28,6 +28,9 @@ class ChatService {
         var aiRepliedMsg = ""
         try {
             aiRepliedMsg = AiService().connectToAIForMsgReply(receivedText, userName) ?: ""
+            if (aiRepliedMsg.isNotEmpty()) {
+                aiRepliedMsg = "[LunLunBot]: ".plus(aiRepliedMsg)
+            }
             aiRepliedMsg = aiRepliedMsg.replace(" Aco", " LunLunBot")
         } catch (e: Exception) {
             println(e.localizedMessage)
