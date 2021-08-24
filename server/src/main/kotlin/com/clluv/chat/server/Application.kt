@@ -18,12 +18,13 @@ fun Application.module() {
         webSocket("/chat") {
             val thisConnection = Connection(this)
             connections += thisConnection
-            println("${thisConnection.name} joins!")
+            println("[${thisConnection.name} joins!]")
             try {
                 send("[You are connected with the name ${thisConnection.name}! There are ${connections.count()} users here.]")
                 for (frame in incoming) {
+                    val allUsernames = connections.map { it.name }
                     val receivedText = (frame as? Frame.Text ?: continue).readText()
-                    val processedText = ChatService().chatContent(receivedText, thisConnection.name)
+                    val processedText = ChatService().chatContent(receivedText, thisConnection.name, allUsernames)
                     connections.forEach {
                         it.session.send(processedText)
                     }
@@ -34,8 +35,8 @@ fun Application.module() {
             } catch (e: Exception) {
                 println(e.localizedMessage)
             } finally {
-                println("${thisConnection.name} leaves!")
                 connections -= thisConnection
+                println("[${thisConnection.name} leaves! There are ${connections.count()} users here.]")
             }
         }
     }

@@ -7,10 +7,12 @@ class ChatService {
     * @param userName this client's connection name
     * @return the processed content to send to others
     */
-    fun chatContent(receivedText: String, userName: String): String {
+    fun chatContent(receivedText: String, userName: String, allUsernames: List<String>): String {
         val returnText = when (receivedText) {
             "[[[adding]]]" -> "[${userName} joins.]"
             "[[[leaving]]]" -> "[${userName} leaves the chatroom.]"
+            "/commands" -> "listUser, exit"
+            "listUser" ->  allUsernames.toString()
             else -> "[${userName}]: ${receivedText}\n${aiReply(receivedText, userName)}"
         }
         return returnText

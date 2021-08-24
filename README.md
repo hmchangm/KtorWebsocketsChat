@@ -31,6 +31,14 @@ The chat client, also send some commands to the server to let others know the cl
 >A suspending function is simply a function that can be paused and resumed at a later time. 
 > 
 >They can execute a long-running operation and wait for it to complete without blocking.
+#### Companion Objects
+>An object declaration inside a class can be marked with the companion keyword.
+> 
+>Members of the companion object can be called simply by using the class name as the qualifier.
+> 
+>The name of the companion object can be omitted, in which case the name Companion will be used.
+> 
+>Class members can access the private members of the corresponding companion object.
 
 ## Reference
 - [Creating a WebSocket Chat](https://ktor.io/docs/creating-web-socket-chat.html).
