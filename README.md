@@ -42,5 +42,5 @@ The chat client, also send some commands to the server to let others know the cl
 
 ## Reference
 - [Creating a WebSocket Chat](https://ktor.io/docs/creating-web-socket-chat.html).
-- [BrainShop by Acobat](https://brainshop.ai/). 
-
+- [BrainShop by Acobat](https://brainshop.ai/).
+- [Prepare Docker](https://ktor.io/docs/docker.html#prepare-docker-image).
