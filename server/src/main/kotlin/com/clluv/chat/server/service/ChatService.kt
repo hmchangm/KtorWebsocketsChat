@@ -12,7 +12,7 @@ class ChatService {
             "[[[adding]]]" -> "[${userName} joins.]"
             "[[[leaving]]]" -> "[${userName} leaves the chatroom.]"
             "/commands" -> "listUser, exit"
-            "listUser" ->  allUsernames.toString()
+            "listUser" -> allUsernames.toString()
             else -> "[${userName}]: ${receivedText}\n${aiReply(receivedText, userName)}"
         }
         return returnText
@@ -24,17 +24,15 @@ class ChatService {
      * @userName userName this client's connection name
      * @return the reply from AI brain
      */
-    private fun aiReply(receivedText: String, userName: String): String {
-        var aiRepliedMsg = ""
-        try {
-            aiRepliedMsg = AiService().connectToAIForMsgReply(receivedText, userName) ?: ""
+
+    val aiService = AiService()
+    private fun aiReply(receivedText: String, userName: String): String =
+        runCatching {
+            var aiRepliedMsg =  aiService.connectToAIForMsgReply(receivedText, userName) ?: ""
             if (aiRepliedMsg.isNotEmpty()) {
-                aiRepliedMsg = "[LunLunBot]: ".plus(aiRepliedMsg)
+                aiRepliedMsg = "[LunLunBot]: $aiRepliedMsg"
             }
-            aiRepliedMsg = aiRepliedMsg.replace(" Aco", " LunLunBot")
-        } catch (e: Exception) {
-            println(e.localizedMessage)
-        }
-        return aiRepliedMsg.ifEmpty { "***LunLunBot is not connected!" }
-    }
+            aiRepliedMsg.replace(" Aco", " LunLunBot")
+        }.getOrDefault("***LunLunBot is not connected!")
+
 }
