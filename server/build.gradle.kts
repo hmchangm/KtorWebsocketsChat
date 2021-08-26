@@ -20,6 +20,7 @@ dependencies {
     implementation("io.ktor:ktor-websockets:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.arrow-kt:arrow-core:$arrowVersion")
+    implementation("io.arrow-kt:arrow-fx:0.12.1")
     implementation("com.squareup.okhttp3:okhttp:3.8.1")
     implementation("com.beust:klaxon:5.5")
     implementation("org.junit.jupiter:junit-jupiter:5.7.0")

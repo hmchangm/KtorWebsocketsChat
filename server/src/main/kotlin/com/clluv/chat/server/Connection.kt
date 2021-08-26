@@ -9,10 +9,14 @@ import java.util.concurrent.atomic.*
  *                including the incoming and outgoing channels, convenience methods for communication.
  */
 class Connection(val session: DefaultWebSocketSession) {
+
     companion object {
-        // AtomicInteger: thread-safe data structure for the counter.
-        // To ensure 2 users will never receive the same ID even when their Connection objects are created simultaneously on separate threads.
-        var lastId = AtomicInteger(0)
+        fun <T> getName(f: (T) -> String, k: T): String = f(k)
+        val genNameFromLastId: (AtomicInteger) -> String = { lastId -> "user${lastId.getAndIncrement()}" }
+        val lastId = AtomicInteger(0)
     }
-    val name = "user${lastId.getAndIncrement()}"
+
+    val name = getName(genNameFromLastId, lastId)
+    val name2 = "user${lastId.getAndIncrement()}"
 }
+typealias NameFunc<T> = (T) -> String
